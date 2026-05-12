@@ -11,5 +11,20 @@
     "symbol_sina": "HC0",
     "name_cn": "热轧卷板",
     "exchange": "shfe"
+  },
+  {
+    "trade_date": "2026-05-12",
+    "open": 3497.0,
+    "high": 3511.0,
+    "low": 3456.0,
+    "close": 3471.0,
+    "volume": 712906,
+    "open_interest": 2083536,
+    "settle": 3486.0,
+    "spot": 3488.0,
+    "basis": 17.0,
+    "symbol_sina": "HC0",
+    "name_cn": "热轧卷板",
+    "exchange": "shfe"
   }
 ]
