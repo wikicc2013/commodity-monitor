@@ -21,6 +21,8 @@
     "volume": 22430,
     "open_interest": 33300,
     "settle": 1836.5,
+    "spot": 1560.0,
+    "basis": -243.0,
     "symbol_sina": "J0",
     "name_cn": "焦炭",
     "exchange": "dce"
