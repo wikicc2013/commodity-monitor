@@ -8,14 +8,18 @@
 <script src="./config.js"></script>
 <style>
   :root {
-    --bg: #0f1419;
-    --panel: #161b22;
-    --border: #21262d;
-    --text: #c9d1d9;
-    --muted: #8b949e;
-    --up: #f85149;
-    --down: #3fb950;
-    --accent: #58a6ff;
+    --bg: #f4f6f9;
+    --panel: #ffffff;
+    --border: #e4e8ef;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --up: #e53e3e;
+    --down: #38a169;
+    --accent: #3b82f6;
+    --accent-light: #dbeafe;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -26,15 +30,20 @@
     min-height: 100vh;
   }
   header {
-    padding: 16px 24px;
+    padding: 18px 28px;
+    background: var(--panel);
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  header h1 { font-size: 18px; font-weight: 600; }
+  header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
   header .meta {
     color: var(--muted);
     font-size: 13px;
@@ -43,34 +52,49 @@
     gap: 12px;
   }
   .badge {
-    padding: 3px 8px;
-    border-radius: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
     font-size: 11px;
-    background: rgba(63, 185, 80, 0.15);
-    color: var(--down);
-    border: 1px solid rgba(63, 185, 80, 0.3);
+    font-weight: 500;
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
   }
-  .container { padding: 20px; max-width: 1600px; margin: 0 auto; }
+  .container { padding: 24px; max-width: 1600px; margin: 0 auto; }
 
   .ticker-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
   }
   .ticker {
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
+    border-radius: var(--radius);
+    padding: 16px 18px;
     cursor: pointer;
-    transition: border-color 0.15s;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
   }
-  .ticker:hover { border-color: var(--accent); }
-  .ticker.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-  .ticker .name { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; }
-  .ticker .price { font-size: 22px; font-weight: 600; margin: 6px 0; font-variant-numeric: tabular-nums; }
-  .ticker .change { font-size: 12px; }
+  .ticker:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .ticker.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-light), var(--shadow-hover);
+  }
+  .ticker .name {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+  }
+  .ticker .price { font-size: 24px; font-weight: 700; margin: 8px 0 4px; font-variant-numeric: tabular-nums; }
+  .ticker .change { font-size: 12px; font-weight: 500; }
   .up { color: var(--up); }
   .down { color: var(--down); }
   .flat { color: var(--muted); }
@@ -78,7 +102,7 @@
   .charts-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 16px;
+    gap: 18px;
   }
   @media (max-width: 1024px) {
     .charts-grid { grid-template-columns: 1fr; }
@@ -86,14 +110,15 @@
   .chart-panel {
     background: var(--panel);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
   }
   .chart-panel h2 {
     font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 12px;
-    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--text);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -102,22 +127,25 @@
     background: var(--bg);
     color: var(--text);
     border: 1px solid var(--border);
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 6px;
     font-size: 12px;
+    cursor: pointer;
   }
+  .chart-panel select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
   .chart { width: 100%; height: 380px; }
   .chart.tall { height: 460px; }
 
   footer {
     text-align: center;
-    padding: 16px;
+    padding: 20px;
     color: var(--muted);
     font-size: 12px;
     border-top: 1px solid var(--border);
-    margin-top: 24px;
+    margin-top: 28px;
   }
   footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
 
   .loading {
     text-align: center;
@@ -129,7 +157,7 @@
 <body>
 
 <header>
-  <h1>📊 黑色系大宗物资监控</h1>
+  <h1>黑色系大宗物资监控</h1>
   <div class="meta">
     <span id="lastUpdated">加载中…</span>
     <span class="badge">Routine 驱动</span>
@@ -160,7 +188,7 @@
     </div>
   </section>
 
-  <section class="chart-panel" style="margin-top: 16px;">
+  <section class="chart-panel" style="margin-top: 18px;">
     <h2>多品种价格对比（归一化 首日=100）</h2>
     <div id="compareChart" class="chart"></div>
   </section>
@@ -174,9 +202,9 @@
 
 <script>
 const CFG = window.DASHBOARD_CONFIG;
-const klineChart   = echarts.init(document.getElementById("klineChart"),   "dark");
-const basisChart   = echarts.init(document.getElementById("basisChart"),   "dark");
-const compareChart = echarts.init(document.getElementById("compareChart"), "dark");
+const klineChart   = echarts.init(document.getElementById("klineChart"));
+const basisChart   = echarts.init(document.getElementById("basisChart"));
+const compareChart = echarts.init(document.getElementById("compareChart"));
 
 window.addEventListener("resize", () => {
   klineChart.resize(); basisChart.resize(); compareChart.resize();
@@ -218,7 +246,7 @@ async function loadManifest() {
       ? `<span style="color:var(--up);font-size:10px">⚠</span>`
       : "";
     card.innerHTML = `
-      <div class="name">${c.name_cn} ${statusBadge} <span style="opacity:.6">${c.code}</span></div>
+      <div class="name">${c.name_cn} ${statusBadge} <span style="opacity:.5">${c.code}</span></div>
       <div class="price ${cls}">${priceStr}</div>
       <div class="change ${cls}">${pctStr}</div>
     `;
@@ -237,9 +265,7 @@ async function loadCommodityHistory(code, months = 4) {
     try {
       const monthRecords = await fetchJson(`${code}/${ym}.json`);
       records.unshift(...monthRecords);
-    } catch (e) {
-      // 月文件不存在很正常
-    }
+    } catch (e) {}
   }
   allData[code] = records;
   return records;
@@ -258,11 +284,15 @@ async function selectCommodity(code) {
   renderBasis(data.slice(-days), c.name_cn);
 }
 
+const chartTextColor = "#374151";
+const chartSplitLine = "#e5e7eb";
+const chartAxisLine = "#d1d5db";
+
 function renderKline(data, name) {
   if (!data.length) {
     klineChart.clear();
     klineChart.setOption({
-      title: { text: "暂无数据", left: "center", textStyle: { color: "#8b949e" } },
+      title: { text: "暂无数据", left: "center", textStyle: { color: "#9ca3af" } },
       backgroundColor: "transparent"
     });
     return;
@@ -274,32 +304,32 @@ function renderKline(data, name) {
   klineChart.setOption({
     backgroundColor: "transparent",
     tooltip: { trigger: "axis", axisPointer: { type: "cross" } },
-    legend: { data: ["K线", "MA5", "MA20"], top: 0, textStyle: { color: "#c9d1d9" } },
+    legend: { data: ["K线", "MA5", "MA20"], top: 0, textStyle: { color: chartTextColor } },
     grid: [
       { left: "8%", right: "5%", top: "10%", height: "60%" },
       { left: "8%", right: "5%", top: "75%", height: "15%" }
     ],
     xAxis: [
-      { type: "category", data: dates, boundaryGap: false, axisLine: { lineStyle: { color: "#30363d" } } },
-      { type: "category", gridIndex: 1, data: dates, axisLine: { lineStyle: { color: "#30363d" } }, axisLabel: { show: false } }
+      { type: "category", data: dates, boundaryGap: false, axisLine: { lineStyle: { color: chartAxisLine } }, axisLabel: { color: chartTextColor } },
+      { type: "category", gridIndex: 1, data: dates, axisLine: { lineStyle: { color: chartAxisLine } }, axisLabel: { show: false } }
     ],
     yAxis: [
-      { scale: true, splitLine: { lineStyle: { color: "#21262d" } } },
+      { scale: true, splitLine: { lineStyle: { color: chartSplitLine } }, axisLabel: { color: chartTextColor } },
       { gridIndex: 1, splitLine: { show: false }, axisLabel: { show: false } }
     ],
     dataZoom: [
       { type: "inside", xAxisIndex: [0, 1] },
-      { show: true, xAxisIndex: [0, 1], type: "slider", bottom: 0 }
+      { show: true, xAxisIndex: [0, 1], type: "slider", bottom: 0, borderColor: chartAxisLine, fillerColor: "rgba(59,130,246,0.1)", handleStyle: { color: "#3b82f6" } }
     ],
     series: [
       {
         name: "K线", type: "candlestick", data: klines,
-        itemStyle: { color: "#f85149", color0: "#3fb950", borderColor: "#f85149", borderColor0: "#3fb950" }
+        itemStyle: { color: "#ef4444", color0: "#22c55e", borderColor: "#ef4444", borderColor0: "#22c55e" }
       },
-      { name: "MA5",  type: "line", data: calcMA(klines, 5),  smooth: true, lineStyle: { width: 1, color: "#f0883e" }, showSymbol: false },
-      { name: "MA20", type: "line", data: calcMA(klines, 20), smooth: true, lineStyle: { width: 1, color: "#58a6ff" }, showSymbol: false },
+      { name: "MA5",  type: "line", data: calcMA(klines, 5),  smooth: true, lineStyle: { width: 1.5, color: "#f59e0b" }, showSymbol: false },
+      { name: "MA20", type: "line", data: calcMA(klines, 20), smooth: true, lineStyle: { width: 1.5, color: "#3b82f6" }, showSymbol: false },
       { name: "成交量", type: "bar", xAxisIndex: 1, yAxisIndex: 1, data: volumes,
-        itemStyle: { color: p => p.data[2] >= 0 ? "#f8514955" : "#3fb95055" } }
+        itemStyle: { color: p => p.data[2] >= 0 ? "rgba(239,68,68,0.3)" : "rgba(34,197,94,0.3)" } }
     ]
   });
 }
@@ -318,7 +348,7 @@ function renderBasis(data, name) {
   if (!hasSpot) {
     basisChart.clear();
     basisChart.setOption({
-      title: { text: `${name} 暂无现货数据`, left: "center", textStyle: { color: "#8b949e", fontSize: 14 } },
+      title: { text: `${name} 暂无现货数据`, left: "center", textStyle: { color: "#9ca3af", fontSize: 14 } },
       backgroundColor: "transparent"
     });
     return;
@@ -326,25 +356,25 @@ function renderBasis(data, name) {
   basisChart.setOption({
     backgroundColor: "transparent",
     tooltip: { trigger: "axis" },
-    legend: { data: ["现货", "期货", "基差"], top: 0, textStyle: { color: "#c9d1d9" } },
+    legend: { data: ["现货", "期货", "基差"], top: 0, textStyle: { color: chartTextColor } },
     grid: { left: "12%", right: "12%", top: "15%", bottom: "10%" },
-    xAxis: { type: "category", data: data.map(d => d.trade_date), axisLine: { lineStyle: { color: "#30363d" } } },
+    xAxis: { type: "category", data: data.map(d => d.trade_date), axisLine: { lineStyle: { color: chartAxisLine } }, axisLabel: { color: chartTextColor } },
     yAxis: [
-      { type: "value", name: "价格", splitLine: { lineStyle: { color: "#21262d" } } },
-      { type: "value", name: "基差", splitLine: { show: false } }
+      { type: "value", name: "价格", splitLine: { lineStyle: { color: chartSplitLine } }, axisLabel: { color: chartTextColor }, nameTextStyle: { color: chartTextColor } },
+      { type: "value", name: "基差", splitLine: { show: false }, axisLabel: { color: chartTextColor }, nameTextStyle: { color: chartTextColor } }
     ],
     series: [
-      { name: "现货", type: "line", data: data.map(d => d.spot), smooth: true, lineStyle: { color: "#f0883e" }, connectNulls: true },
-      { name: "期货", type: "line", data: data.map(d => d.close), smooth: true, lineStyle: { color: "#58a6ff" } },
+      { name: "现货", type: "line", data: data.map(d => d.spot), smooth: true, lineStyle: { color: "#f59e0b", width: 2 }, itemStyle: { color: "#f59e0b" }, connectNulls: true },
+      { name: "期货", type: "line", data: data.map(d => d.close), smooth: true, lineStyle: { color: "#3b82f6", width: 2 }, itemStyle: { color: "#3b82f6" } },
       { name: "基差", type: "bar", yAxisIndex: 1, data: data.map(d => d.basis),
-        itemStyle: { color: p => p.data >= 0 ? "#f8514955" : "#3fb95055" } }
+        itemStyle: { color: p => p.data >= 0 ? "rgba(239,68,68,0.35)" : "rgba(34,197,94,0.35)" } }
     ]
   });
 }
 
 async function renderCompare() {
   const codes = ["RB", "HC", "I", "J", "JM"];
-  const colorMap = { "RB":"#f85149", "HC":"#f0883e", "I":"#58a6ff", "J":"#a371f7", "JM":"#3fb950" };
+  const colorMap = { "RB":"#ef4444", "HC":"#f59e0b", "I":"#3b82f6", "J":"#8b5cf6", "JM":"#22c55e" };
   const series = [];
   let xData = [];
   for (const code of codes) {
@@ -361,7 +391,8 @@ async function renderCompare() {
         smooth: true,
         showSymbol: false,
         data: recent.map(d => d.close ? (d.close / base * 100).toFixed(2) : null),
-        lineStyle: { color: colorMap[code] }
+        lineStyle: { color: colorMap[code], width: 2 },
+        itemStyle: { color: colorMap[code] }
       });
     } catch (e) {
       console.warn(`加载 ${code} 失败`, e);
@@ -370,10 +401,10 @@ async function renderCompare() {
   compareChart.setOption({
     backgroundColor: "transparent",
     tooltip: { trigger: "axis" },
-    legend: { top: 0, textStyle: { color: "#c9d1d9" } },
+    legend: { top: 0, textStyle: { color: chartTextColor } },
     grid: { left: "6%", right: "5%", top: "12%", bottom: "10%" },
-    xAxis: { type: "category", data: xData, axisLine: { lineStyle: { color: "#30363d" } } },
-    yAxis: { type: "value", name: "归一化", splitLine: { lineStyle: { color: "#21262d" } } },
+    xAxis: { type: "category", data: xData, axisLine: { lineStyle: { color: chartAxisLine } }, axisLabel: { color: chartTextColor } },
+    yAxis: { type: "value", name: "归一化", splitLine: { lineStyle: { color: chartSplitLine } }, axisLabel: { color: chartTextColor }, nameTextStyle: { color: chartTextColor } },
     series
   });
 }
@@ -391,7 +422,7 @@ async function renderCompare() {
     document.getElementById("tickers").innerHTML =
       `<div class="loading">数据加载失败: ${e.message}<br><br>
        请检查 config.js 里的 dataBaseUrl 是否指向正确位置。<br>
-       本地预览：cd 到项目根目录跑 <code>python -m http.server</code> 后访问 /web/index.html</div>`;
+       本地预览：cd 到项目根目录跑 <code>python -m http.server</code> 后访问 /index.html</div>`;
   }
 })();
 </script>
