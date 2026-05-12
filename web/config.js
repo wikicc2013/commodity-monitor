@@ -5,7 +5,7 @@
 
 window.DASHBOARD_CONFIG = {
   // GitHub Pages 部署模式：从 raw.githubusercontent.com 读
-  // dataBaseUrl: "https://raw.githubusercontent.com/YOUR_USERNAME/commodity-monitor/main/data",
+  // dataBaseUrl: "https://raw.githubusercontent.com/wikicc2013/commodity-monitor/main/data",
 
   // 本地预览模式：相对路径
   dataBaseUrl: "../data",
