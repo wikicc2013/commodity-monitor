@@ -1,6 +1,69 @@
 {
-  "last_updated": null,
-  "last_run_at": null,
-  "commodities": [],
-  "note": "Routine 首次运行后此文件会被自动填充"
+  "last_updated": "2026-05-12",
+  "last_run_at": "2026-05-12T08:08:07",
+  "commodities": [
+    {
+      "code": "RB",
+      "name_cn": "螺纹钢",
+      "symbol_sina": "RB0",
+      "category": "钢材",
+      "last_status": "ok",
+      "last_close": 3286.0,
+      "last_change_pct": null
+    },
+    {
+      "code": "HC",
+      "name_cn": "热轧卷板",
+      "symbol_sina": "HC0",
+      "category": "钢材",
+      "last_status": "ok",
+      "last_close": 3497.0,
+      "last_change_pct": null
+    },
+    {
+      "code": "I",
+      "name_cn": "铁矿石",
+      "symbol_sina": "I0",
+      "category": "炉料",
+      "last_status": "ok",
+      "last_close": 822.5,
+      "last_change_pct": null
+    },
+    {
+      "code": "J",
+      "name_cn": "焦炭",
+      "symbol_sina": "J0",
+      "category": "炉料",
+      "last_status": "ok",
+      "last_close": 1868.0,
+      "last_change_pct": null
+    },
+    {
+      "code": "JM",
+      "name_cn": "焦煤",
+      "symbol_sina": "JM0",
+      "category": "炉料",
+      "last_status": "ok",
+      "last_close": 1309.0,
+      "last_change_pct": null
+    },
+    {
+      "code": "SF",
+      "name_cn": "硅铁",
+      "symbol_sina": "SF0",
+      "category": "合金",
+      "last_status": "ok",
+      "last_close": 5696.0,
+      "last_change_pct": null
+    },
+    {
+      "code": "SM",
+      "name_cn": "锰硅",
+      "symbol_sina": "SM0",
+      "category": "合金",
+      "last_status": "ok",
+      "last_close": 5912.0,
+      "last_change_pct": null
+    }
+  ]
 }

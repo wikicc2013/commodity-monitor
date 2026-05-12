@@ -1,0 +1,15 @@
+[
+  {
+    "trade_date": "2026-05-11",
+    "open": 816.0,
+    "high": 826.5,
+    "low": 813.5,
+    "close": 822.5,
+    "volume": 261177,
+    "open_interest": 697790,
+    "settle": 820.5,
+    "symbol_sina": "I0",
+    "name_cn": "铁矿石",
+    "exchange": "dce"
+  }
+]
