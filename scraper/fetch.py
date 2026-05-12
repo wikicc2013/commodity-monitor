@@ -16,6 +16,8 @@ from typing import Optional
 
 import yaml
 import pandas as pd
+import types as _t
+sys.modules.setdefault("jsonpath", _t.ModuleType("jsonpath"))  # jsonpath wheel fails to build; only used by NBS macro funcs we don't call
 import akshare as ak
 from tenacity import retry, stop_after_attempt, wait_exponential
 
