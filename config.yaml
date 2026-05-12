@@ -1,0 +1,52 @@
+# 黑色系大宗商品监控配置
+# 修改这里，下一次 Routine 跑就生效
+
+commodities:
+  - code: RB
+    symbol_sina: RB0
+    name_cn: 螺纹钢
+    spot_name: 螺纹钢
+    exchange: shfe
+    category: 钢材
+
+  - code: HC
+    symbol_sina: HC0
+    name_cn: 热轧卷板
+    spot_name: 热轧卷板
+    exchange: shfe
+    category: 钢材
+
+  - code: I
+    symbol_sina: I0
+    name_cn: 铁矿石
+    spot_name: 铁矿石
+    exchange: dce
+    category: 炉料
+
+  - code: J
+    symbol_sina: J0
+    name_cn: 焦炭
+    spot_name: 焦炭
+    exchange: dce
+    category: 炉料
+
+  - code: JM
+    symbol_sina: JM0
+    name_cn: 焦煤
+    spot_name: 焦煤
+    exchange: dce
+    category: 炉料
+
+  - code: SF
+    symbol_sina: SF0
+    name_cn: 硅铁
+    spot_name: null
+    exchange: czce
+    category: 合金
+
+  - code: SM
+    symbol_sina: SM0
+    name_cn: 锰硅
+    spot_name: null
+    exchange: czce
+    category: 合金

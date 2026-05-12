@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑色系大宗物资监控看板</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="./config.js"></script>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #161b22;
+    --border: #21262d;
+    --text: #c9d1d9;
+    --muted: #8b949e;
+    --up: #f85149;
+    --down: #3fb950;
+    --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 "PingFang SC", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header h1 { font-size: 18px; font-weight: 600; }
+  header .meta {
+    color: var(--muted);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .badge {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: rgba(63, 185, 80, 0.15);
+    color: var(--down);
+    border: 1px solid rgba(63, 185, 80, 0.3);
+  }
+  .container { padding: 20px; max-width: 1600px; margin: 0 auto; }
+
+  .ticker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .ticker {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .ticker:hover { border-color: var(--accent); }
+  .ticker.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .ticker .name { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; }
+  .ticker .price { font-size: 22px; font-weight: 600; margin: 6px 0; font-variant-numeric: tabular-nums; }
+  .ticker .change { font-size: 12px; }
+  .up { color: var(--up); }
+  .down { color: var(--down); }
+  .flat { color: var(--muted); }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 1024px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+  .chart-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .chart-panel h2 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chart-panel select {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .chart { width: 100%; height: 380px; }
+  .chart.tall { height: 460px; }
+
+  footer {
+    text-align: center;
+    padding: 16px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 24px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📊 黑色系大宗物资监控</h1>
+  <div class="meta">
+    <span id="lastUpdated">加载中…</span>
+    <span class="badge">Routine 驱动</span>
+  </div>
+</header>
+
+<div class="container">
+  <section class="ticker-grid" id="tickers">
+    <div class="loading">正在从 GitHub 拉取最新数据…</div>
+  </section>
+
+  <section class="charts-grid">
+    <div class="chart-panel">
+      <h2>
+        <span id="klineTitle">K线走势</span>
+        <select id="daysSelect">
+          <option value="30">近30天</option>
+          <option value="60" selected>近60天</option>
+          <option value="120">近120天</option>
+        </select>
+      </h2>
+      <div id="klineChart" class="chart tall"></div>
+    </div>
+
+    <div class="chart-panel">
+      <h2>现货 / 基差</h2>
+      <div id="basisChart" class="chart tall"></div>
+    </div>
+  </section>
+
+  <section class="chart-panel" style="margin-top: 16px;">
+    <h2>多品种价格对比（归一化 首日=100）</h2>
+    <div id="compareChart" class="chart"></div>
+  </section>
+</div>
+
+<footer>
+  数据来源：<a href="https://github.com/akfamily/akshare" target="_blank">AKShare</a>（新浪财经 / 生意社）
+  · 由 <a href="https://code.claude.com/docs/en/routines" target="_blank">Claude Code Routine</a> 每个工作日 16:00 自动更新
+  · 仅供研究参考
+</footer>
+
+<script>
+const CFG = window.DASHBOARD_CONFIG;
+const klineChart   = echarts.init(document.getElementById("klineChart"),   "dark");
+const basisChart   = echarts.init(document.getElementById("basisChart"),   "dark");
+const compareChart = echarts.init(document.getElementById("compareChart"), "dark");
+
+window.addEventListener("resize", () => {
+  klineChart.resize(); basisChart.resize(); compareChart.resize();
+});
+
+function dataUrl(path) {
+  const base = CFG.dataBaseUrl.replace(/\/$/, "");
+  const cb = CFG.cacheBust ? `?_=${Date.now()}` : "";
+  return `${base}/${path}${cb}`;
+}
+
+async function fetchJson(path) {
+  const res = await fetch(dataUrl(path));
+  if (!res.ok) throw new Error(`HTTP ${res.status} on ${path}`);
+  return res.json();
+}
+
+let manifest = null;
+let selectedCode = null;
+let allData = {};
+
+async function loadManifest() {
+  manifest = await fetchJson("manifest.json");
+  document.getElementById("lastUpdated").textContent =
+    "最近更新: " + (manifest.last_updated || "未知");
+
+  const grid = document.getElementById("tickers");
+  grid.innerHTML = "";
+  for (const c of manifest.commodities) {
+    const card = document.createElement("div");
+    card.className = "ticker";
+    card.dataset.code = c.code;
+    const pct = c.last_change_pct;
+    const cls = pct == null ? "flat" : pct >= 0 ? "up" : "down";
+    const arrow = pct == null ? "—" : pct >= 0 ? "▲" : "▼";
+    const pctStr = pct == null ? "" : `${arrow} ${Math.abs(pct).toFixed(2)}%`;
+    const priceStr = c.last_close != null ? c.last_close.toFixed(0) : "—";
+    const statusBadge = c.last_status !== "ok"
+      ? `<span style="color:var(--up);font-size:10px">⚠</span>`
+      : "";
+    card.innerHTML = `
+      <div class="name">${c.name_cn} ${statusBadge} <span style="opacity:.6">${c.code}</span></div>
+      <div class="price ${cls}">${priceStr}</div>
+      <div class="change ${cls}">${pctStr}</div>
+    `;
+    card.onclick = () => selectCommodity(c.code);
+    grid.appendChild(card);
+  }
+}
+
+async function loadCommodityHistory(code, months = 4) {
+  if (allData[code]) return allData[code];
+  const now = new Date();
+  const records = [];
+  for (let i = 0; i < months; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    try {
+      const monthRecords = await fetchJson(`${code}/${ym}.json`);
+      records.unshift(...monthRecords);
+    } catch (e) {
+      // 月文件不存在很正常
+    }
+  }
+  allData[code] = records;
+  return records;
+}
+
+async function selectCommodity(code) {
+  selectedCode = code;
+  document.querySelectorAll(".ticker").forEach(el => {
+    el.classList.toggle("selected", el.dataset.code === code);
+  });
+  const c = manifest.commodities.find(c => c.code === code);
+  document.getElementById("klineTitle").textContent = `${c.name_cn} K线走势`;
+  const data = await loadCommodityHistory(code, 4);
+  const days = parseInt(document.getElementById("daysSelect").value);
+  renderKline(data.slice(-days), c.name_cn);
+  renderBasis(data.slice(-days), c.name_cn);
+}
+
+function renderKline(data, name) {
+  if (!data.length) {
+    klineChart.clear();
+    klineChart.setOption({
+      title: { text: "暂无数据", left: "center", textStyle: { color: "#8b949e" } },
+      backgroundColor: "transparent"
+    });
+    return;
+  }
+  const dates = data.map(d => d.trade_date);
+  const klines = data.map(d => [d.open, d.close, d.low, d.high]);
+  const volumes = data.map((d, i) => [i, d.volume || 0, (d.close >= d.open) ? 1 : -1]);
+
+  klineChart.setOption({
+    backgroundColor: "transparent",
+    tooltip: { trigger: "axis", axisPointer: { type: "cross" } },
+    legend: { data: ["K线", "MA5", "MA20"], top: 0, textStyle: { color: "#c9d1d9" } },
+    grid: [
+      { left: "8%", right: "5%", top: "10%", height: "60%" },
+      { left: "8%", right: "5%", top: "75%", height: "15%" }
+    ],
+    xAxis: [
+      { type: "category", data: dates, boundaryGap: false, axisLine: { lineStyle: { color: "#30363d" } } },
+      { type: "category", gridIndex: 1, data: dates, axisLine: { lineStyle: { color: "#30363d" } }, axisLabel: { show: false } }
+    ],
+    yAxis: [
+      { scale: true, splitLine: { lineStyle: { color: "#21262d" } } },
+      { gridIndex: 1, splitLine: { show: false }, axisLabel: { show: false } }
+    ],
+    dataZoom: [
+      { type: "inside", xAxisIndex: [0, 1] },
+      { show: true, xAxisIndex: [0, 1], type: "slider", bottom: 0 }
+    ],
+    series: [
+      {
+        name: "K线", type: "candlestick", data: klines,
+        itemStyle: { color: "#f85149", color0: "#3fb950", borderColor: "#f85149", borderColor0: "#3fb950" }
+      },
+      { name: "MA5",  type: "line", data: calcMA(klines, 5),  smooth: true, lineStyle: { width: 1, color: "#f0883e" }, showSymbol: false },
+      { name: "MA20", type: "line", data: calcMA(klines, 20), smooth: true, lineStyle: { width: 1, color: "#58a6ff" }, showSymbol: false },
+      { name: "成交量", type: "bar", xAxisIndex: 1, yAxisIndex: 1, data: volumes,
+        itemStyle: { color: p => p.data[2] >= 0 ? "#f8514955" : "#3fb95055" } }
+    ]
+  });
+}
+
+function calcMA(klines, n) {
+  const closes = klines.map(k => k[1]);
+  return closes.map((_, i) => {
+    if (i < n - 1) return "-";
+    const sum = closes.slice(i - n + 1, i + 1).reduce((a, b) => a + b, 0);
+    return (sum / n).toFixed(2);
+  });
+}
+
+function renderBasis(data, name) {
+  const hasSpot = data.some(d => d.spot != null);
+  if (!hasSpot) {
+    basisChart.clear();
+    basisChart.setOption({
+      title: { text: `${name} 暂无现货数据`, left: "center", textStyle: { color: "#8b949e", fontSize: 14 } },
+      backgroundColor: "transparent"
+    });
+    return;
+  }
+  basisChart.setOption({
+    backgroundColor: "transparent",
+    tooltip: { trigger: "axis" },
+    legend: { data: ["现货", "期货", "基差"], top: 0, textStyle: { color: "#c9d1d9" } },
+    grid: { left: "12%", right: "12%", top: "15%", bottom: "10%" },
+    xAxis: { type: "category", data: data.map(d => d.trade_date), axisLine: { lineStyle: { color: "#30363d" } } },
+    yAxis: [
+      { type: "value", name: "价格", splitLine: { lineStyle: { color: "#21262d" } } },
+      { type: "value", name: "基差", splitLine: { show: false } }
+    ],
+    series: [
+      { name: "现货", type: "line", data: data.map(d => d.spot), smooth: true, lineStyle: { color: "#f0883e" }, connectNulls: true },
+      { name: "期货", type: "line", data: data.map(d => d.close), smooth: true, lineStyle: { color: "#58a6ff" } },
+      { name: "基差", type: "bar", yAxisIndex: 1, data: data.map(d => d.basis),
+        itemStyle: { color: p => p.data >= 0 ? "#f8514955" : "#3fb95055" } }
+    ]
+  });
+}
+
+async function renderCompare() {
+  const codes = ["RB", "HC", "I", "J", "JM"];
+  const colorMap = { "RB":"#f85149", "HC":"#f0883e", "I":"#58a6ff", "J":"#a371f7", "JM":"#3fb950" };
+  const series = [];
+  let xData = [];
+  for (const code of codes) {
+    try {
+      const data = await loadCommodityHistory(code, 3);
+      const recent = data.slice(-60);
+      if (!recent.length) continue;
+      if (!xData.length) xData = recent.map(d => d.trade_date);
+      const base = recent[0].close || 1;
+      const c = manifest.commodities.find(c => c.code === code);
+      series.push({
+        name: c?.name_cn || code,
+        type: "line",
+        smooth: true,
+        showSymbol: false,
+        data: recent.map(d => d.close ? (d.close / base * 100).toFixed(2) : null),
+        lineStyle: { color: colorMap[code] }
+      });
+    } catch (e) {
+      console.warn(`加载 ${code} 失败`, e);
+    }
+  }
+  compareChart.setOption({
+    backgroundColor: "transparent",
+    tooltip: { trigger: "axis" },
+    legend: { top: 0, textStyle: { color: "#c9d1d9" } },
+    grid: { left: "6%", right: "5%", top: "12%", bottom: "10%" },
+    xAxis: { type: "category", data: xData, axisLine: { lineStyle: { color: "#30363d" } } },
+    yAxis: { type: "value", name: "归一化", splitLine: { lineStyle: { color: "#21262d" } } },
+    series
+  });
+}
+
+(async function init() {
+  try {
+    await loadManifest();
+    const firstOk = manifest.commodities.find(c => c.last_status === "ok");
+    if (firstOk) await selectCommodity(firstOk.code);
+    await renderCompare();
+    document.getElementById("daysSelect").addEventListener("change", () => {
+      if (selectedCode) selectCommodity(selectedCode);
+    });
+  } catch (e) {
+    document.getElementById("tickers").innerHTML =
+      `<div class="loading">数据加载失败: ${e.message}<br><br>
+       请检查 config.js 里的 dataBaseUrl 是否指向正确位置。<br>
+       本地预览：cd 到项目根目录跑 <code>python -m http.server</code> 后访问 /web/index.html</div>`;
+  }
+})();
+</script>
+</body>
+</html>
