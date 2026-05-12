@@ -21,6 +21,8 @@
     "volume": 966893,
     "open_interest": 2141462,
     "settle": 3271.0,
+    "spot": 3296.84,
+    "basis": 41.84,
     "symbol_sina": "RB0",
     "name_cn": "螺纹钢",
     "exchange": "shfe"

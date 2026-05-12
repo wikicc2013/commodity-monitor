@@ -21,6 +21,8 @@
     "volume": 935428,
     "open_interest": 488910,
     "settle": 1274.0,
+    "spot": 1558.75,
+    "basis": 317.75,
     "symbol_sina": "JM0",
     "name_cn": "焦煤",
     "exchange": "dce"
