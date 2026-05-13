@@ -36,20 +36,19 @@ python scraper/fetch.py
 ## Commit 规则
 
 ```bash
+BRANCH="claude/data-$(date +%Y-%m-%d)"
+
 git config user.email "claude-routine@anthropic.com"
 git config user.name "Claude Routine"
+git checkout -b "$BRANCH"
 git add data/
 git commit -m "data: $(date +%Y-%m-%d) 黑色系日更"
-git push origin main
+git push origin "$BRANCH"
 ```
+
+推送到 `claude/*` 分支后，GitHub Actions 会自动合并到 main 并删除临时分支。
 
 如果当天没有任何数据更新（比如节假日），**不要做空 commit**。
-
-如果 git push 报 non-fast-forward（仓库有了新 commit），先：
-```bash
-git pull --rebase origin main
-git push origin main
-```
 
 ## 最后输出格式
 
