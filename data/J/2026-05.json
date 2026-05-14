@@ -39,5 +39,18 @@
     "symbol_sina": "J0",
     "name_cn": "焦炭",
     "exchange": "dce"
+  },
+  {
+    "trade_date": "2026-05-14",
+    "open": 1816.0,
+    "high": 1829.0,
+    "low": 1810.0,
+    "close": 1826.5,
+    "volume": 11285,
+    "open_interest": 31574,
+    "settle": 1820.5,
+    "symbol_sina": "J0",
+    "name_cn": "焦炭",
+    "exchange": "dce"
   }
 ]
