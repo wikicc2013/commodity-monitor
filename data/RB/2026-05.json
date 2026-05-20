@@ -78,5 +78,18 @@
     "symbol_sina": "RB0",
     "name_cn": "螺纹钢",
     "exchange": "shfe"
+  },
+  {
+    "trade_date": "2026-05-19",
+    "open": 3210.0,
+    "high": 3213.0,
+    "low": 3187.0,
+    "close": 3204.0,
+    "volume": 700743,
+    "open_interest": 1873631,
+    "settle": 3197.0,
+    "symbol_sina": "RB0",
+    "name_cn": "螺纹钢",
+    "exchange": "shfe"
   }
 ]
