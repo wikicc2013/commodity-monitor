@@ -18,6 +18,9 @@ import yaml
 import pandas as pd
 import types as _t
 sys.modules.setdefault("jsonpath", _t.ModuleType("jsonpath"))  # jsonpath wheel fails to build; only used by NBS macro funcs we don't call
+_py_mini_racer_stub = _t.ModuleType("py_mini_racer")
+_py_mini_racer_stub.MiniRacer = type("MiniRacer", (), {})  # native build unavailable in cloud; only used by JS-eval funcs we don't call
+sys.modules.setdefault("py_mini_racer", _py_mini_racer_stub)
 import akshare as ak
 from tenacity import retry, stop_after_attempt, wait_exponential
 
