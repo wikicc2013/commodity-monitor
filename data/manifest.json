@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-05-29",
-  "last_run_at": "2026-05-29T08:23:12",
+  "last_updated": "2026-06-01",
+  "last_run_at": "2026-06-01T08:23:05",
   "commodities": [
     {
       "code": "RB",
@@ -8,8 +8,8 @@
       "symbol_sina": "RB0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3145.0,
-      "last_change_pct": 0.031806615776081425
+      "last_close": 3158.0,
+      "last_change_pct": 0.4133545310015898
     },
     {
       "code": "HC",
@@ -17,8 +17,8 @@
       "symbol_sina": "HC0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3365.0,
-      "last_change_pct": 0.05947071067499256
+      "last_close": 3382.0,
+      "last_change_pct": 0.5052005943536404
     },
     {
       "code": "I",
@@ -26,8 +26,8 @@
       "symbol_sina": "I0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 780.5,
-      "last_change_pct": -0.12795905310300704
+      "last_close": 783.5,
+      "last_change_pct": 0.38436899423446513
     },
     {
       "code": "J",
@@ -35,8 +35,8 @@
       "symbol_sina": "J0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 1899.5,
-      "last_change_pct": 1.1717709720372835
+      "last_close": 1903.0,
+      "last_change_pct": 0.18425901553040272
     },
     {
       "code": "JM",
@@ -44,8 +44,8 @@
       "symbol_sina": "JM0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 1290.0,
-      "last_change_pct": 1.335428122545169
+      "last_close": 1285.5,
+      "last_change_pct": -0.3488372093023256
     },
     {
       "code": "SF",
@@ -53,8 +53,8 @@
       "symbol_sina": "SF0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5826.0,
-      "last_change_pct": -1.6210739614994936
+      "last_close": 5890.0,
+      "last_change_pct": null
     },
     {
       "code": "SM",
@@ -62,10 +62,8 @@
       "symbol_sina": "SM0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5976.0,
-      "last_change_pct": -0.06688963210702341
+      "last_close": 6040.0,
+      "last_change_pct": null
     }
-  ],
-  "last_check": "2026-05-31",
-  "last_check_note": "非交易日"
+  ]
 }
