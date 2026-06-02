@@ -1,0 +1,15 @@
+[
+  {
+    "trade_date": "2026-06-01",
+    "open": 3156.0,
+    "high": 3189.0,
+    "low": 3156.0,
+    "close": 3177.0,
+    "volume": 679167,
+    "open_interest": 1709019,
+    "settle": 3173.0,
+    "symbol_sina": "RB0",
+    "name_cn": "螺纹钢",
+    "exchange": "shfe"
+  }
+]
