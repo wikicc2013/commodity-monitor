@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-03",
-  "last_run_at": "2026-06-03T08:22:19",
+  "last_updated": "2026-06-04",
+  "last_run_at": "2026-06-04T08:22:27",
   "commodities": [
     {
       "code": "RB",
@@ -8,8 +8,8 @@
       "symbol_sina": "RB0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3169.0,
-      "last_change_pct": -0.2518098835379289
+      "last_close": 3157.0,
+      "last_change_pct": -0.3786683496371095
     },
     {
       "code": "HC",
@@ -17,8 +17,8 @@
       "symbol_sina": "HC0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3399.0,
-      "last_change_pct": null
+      "last_close": 3386.0,
+      "last_change_pct": -0.38246543100912034
     },
     {
       "code": "I",
@@ -26,8 +26,8 @@
       "symbol_sina": "I0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 780.0,
-      "last_change_pct": -0.12804097311139565
+      "last_close": 767.5,
+      "last_change_pct": -1.6025641025641024
     },
     {
       "code": "J",
@@ -35,8 +35,8 @@
       "symbol_sina": "J0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 2000.0,
-      "last_change_pct": 1.0611419909044972
+      "last_close": 2043.0,
+      "last_change_pct": 2.15
     },
     {
       "code": "JM",
@@ -53,8 +53,8 @@
       "symbol_sina": "SF0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5890.0,
-      "last_change_pct": 0.0
+      "last_close": 5962.0,
+      "last_change_pct": 1.2224108658743633
     },
     {
       "code": "SM",
