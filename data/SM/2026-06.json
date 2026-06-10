@@ -63,5 +63,18 @@
     "symbol_sina": "SM0",
     "name_cn": "锰硅",
     "exchange": "czce"
+  },
+  {
+    "trade_date": "2026-06-10",
+    "open": 5988.0,
+    "high": 6040.0,
+    "low": 5970.0,
+    "close": 6016.0,
+    "volume": 161723,
+    "open_interest": 332447,
+    "settle": 6012.0,
+    "symbol_sina": "SM0",
+    "name_cn": "锰硅",
+    "exchange": "czce"
   }
 ]
