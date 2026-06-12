@@ -76,5 +76,18 @@
     "symbol_sina": "JM0",
     "name_cn": "焦煤",
     "exchange": "dce"
+  },
+  {
+    "trade_date": "2026-06-11",
+    "open": 1373.5,
+    "high": 1379.0,
+    "low": 1338.5,
+    "close": 1362.0,
+    "volume": 1249585,
+    "open_interest": 536959,
+    "settle": 1359.5,
+    "symbol_sina": "JM0",
+    "name_cn": "焦煤",
+    "exchange": "dce"
   }
 ]
