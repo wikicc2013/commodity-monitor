@@ -115,5 +115,18 @@
     "symbol_sina": "I0",
     "name_cn": "铁矿石",
     "exchange": "dce"
+  },
+  {
+    "trade_date": "2026-06-16",
+    "open": 771.0,
+    "high": 773.5,
+    "low": 762.0,
+    "close": 762.0,
+    "volume": 204664,
+    "open_interest": 571948,
+    "settle": 767.5,
+    "symbol_sina": "I0",
+    "name_cn": "铁矿石",
+    "exchange": "dce"
   }
 ]
