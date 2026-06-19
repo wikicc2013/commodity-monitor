@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-18",
-  "last_run_at": "2026-06-18T08:23:00",
+  "last_updated": "2026-06-19",
+  "last_run_at": "2026-06-19T08:22:36",
   "commodities": [
     {
       "code": "RB",
@@ -8,8 +8,8 @@
       "symbol_sina": "RB0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3155.0,
-      "last_change_pct": -0.4417797412432944
+      "last_close": 3131.0,
+      "last_change_pct": -0.7606973058637084
     },
     {
       "code": "HC",
@@ -17,8 +17,8 @@
       "symbol_sina": "HC0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3371.0,
-      "last_change_pct": -0.3252513305736251
+      "last_close": 3349.0,
+      "last_change_pct": -0.6526253337288638
     },
     {
       "code": "I",
@@ -26,8 +26,8 @@
       "symbol_sina": "I0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 747.5,
-      "last_change_pct": -1.9028871391076114
+      "last_close": 747.0,
+      "last_change_pct": -0.06688963210702341
     },
     {
       "code": "J",
@@ -35,8 +35,8 @@
       "symbol_sina": "J0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 2073.0,
-      "last_change_pct": -0.5039596832253419
+      "last_close": 2019.5,
+      "last_change_pct": -2.580800771828268
     },
     {
       "code": "JM",
@@ -44,8 +44,8 @@
       "symbol_sina": "JM0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 1342.5,
-      "last_change_pct": -0.03723008190618019
+      "last_close": 1271.0,
+      "last_change_pct": -5.325884543761639
     },
     {
       "code": "SF",
@@ -53,8 +53,8 @@
       "symbol_sina": "SF0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5688.0,
-      "last_change_pct": -0.6636395389451625
+      "last_close": 5694.0,
+      "last_change_pct": 0.10548523206751054
     },
     {
       "code": "SM",
@@ -62,8 +62,8 @@
       "symbol_sina": "SM0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5838.0,
-      "last_change_pct": -0.44338335607094137
+      "last_close": 5856.0,
+      "last_change_pct": 0.3083247687564234
     }
   ]
 }
