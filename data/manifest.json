@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-06-29",
-  "last_run_at": "2026-06-29T08:22:18",
+  "last_updated": "2026-06-30",
+  "last_run_at": "2026-06-30T08:23:42",
   "commodities": [
     {
       "code": "RB",
@@ -8,8 +8,8 @@
       "symbol_sina": "RB0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3093.0,
-      "last_change_pct": -0.16139444803098774
+      "last_close": 3088.0,
+      "last_change_pct": -0.1616553507921112
     },
     {
       "code": "HC",
@@ -17,8 +17,8 @@
       "symbol_sina": "HC0",
       "category": "钢材",
       "last_status": "ok",
-      "last_close": 3316.0,
-      "last_change_pct": 0.12077294685990338
+      "last_close": 3319.0,
+      "last_change_pct": 0.09047044632086852
     },
     {
       "code": "I",
@@ -53,8 +53,8 @@
       "symbol_sina": "SF0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5604.0,
-      "last_change_pct": -0.32017075773745995
+      "last_close": 5680.0,
+      "last_change_pct": 1.3561741613133478
     },
     {
       "code": "SM",
@@ -62,8 +62,8 @@
       "symbol_sina": "SM0",
       "category": "合金",
       "last_status": "ok",
-      "last_close": 5762.0,
-      "last_change_pct": 0.06946856547412296
+      "last_close": 5770.0,
+      "last_change_pct": 0.13884068031933355
     }
   ]
 }
