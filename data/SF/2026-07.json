@@ -63,5 +63,18 @@
     "symbol_sina": "SF0",
     "name_cn": "硅铁",
     "exchange": "czce"
+  },
+  {
+    "trade_date": "2026-07-09",
+    "open": 5810.0,
+    "high": 5826.0,
+    "low": 5790.0,
+    "close": 5824.0,
+    "volume": 129535,
+    "open_interest": 207893,
+    "settle": 5806.0,
+    "symbol_sina": "SF0",
+    "name_cn": "硅铁",
+    "exchange": "czce"
   }
 ]
