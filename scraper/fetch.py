@@ -8,6 +8,7 @@
 4. 输出友好：最后打印摘要表
 """
 import json
+import socket
 import sys
 import logging
 from pathlib import Path
@@ -17,6 +18,11 @@ from typing import Optional
 import yaml
 import pandas as pd
 import types as _t
+
+# akshare 内部用 requests.get() 不带 timeout，网络卡住会导致整个脚本永久挂起，
+# 单品种故障就会拖垮后面所有品种（违反"单个品种失败不影响其他品种"的设计原则）。
+# 设置全局 socket 超时，让卡住的请求变成异常，从而触发 @retry。
+socket.setdefaulttimeout(20)
 sys.modules.setdefault("jsonpath", _t.ModuleType("jsonpath"))  # jsonpath wheel fails to build; only used by NBS macro funcs we don't call
 _py_mini_racer_stub = _t.ModuleType("py_mini_racer")
 _py_mini_racer_stub.MiniRacer = type("MiniRacer", (), {})  # native build unavailable in cloud; only used by JS-eval funcs we don't call
