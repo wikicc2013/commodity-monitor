@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-07-10",
-  "last_run_at": "2026-07-10T08:54:13",
+  "last_updated": "2026-07-13",
+  "last_run_at": "2026-07-13T08:22:59",
   "commodities": [
     {
       "code": "RB",
@@ -35,8 +35,8 @@
       "symbol_sina": "J0",
       "category": "炉料",
       "last_status": "ok",
-      "last_close": 1913.0,
-      "last_change_pct": -2.2233580373115256
+      "last_close": 1865.0,
+      "last_change_pct": -2.509147935180345
     },
     {
       "code": "JM",
@@ -65,7 +65,5 @@
       "last_close": 5872.0,
       "last_change_pct": -0.777289624873268
     }
-  ],
-  "last_check": "2026-07-12",
-  "last_check_note": "非交易日"
+  ]
 }
